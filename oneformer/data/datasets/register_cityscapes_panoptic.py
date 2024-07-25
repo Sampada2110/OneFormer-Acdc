@@ -30,7 +30,7 @@ def get_cityscapes_panoptic_files(image_dir, gt_dir, json_info):
         for basename in PathManager.ls(city_img_dir):
             image_file = os.path.join(city_img_dir, basename)
 
-            suffix = "_leftImg8bit.png"
+            suffix = "_rgb_anon.png"
             assert basename.endswith(suffix), basename
             basename = os.path.basename(basename)[: -len(suffix)]
 
@@ -90,9 +90,17 @@ def load_cityscapes_panoptic(image_dir, gt_dir, gt_json, meta):
     files = get_cityscapes_panoptic_files(image_dir, gt_dir, json_info)
     ret = []
     for image_file, label_file, segments_info in files:
-        sem_label_file = (
-            image_file.replace("leftImg8bit", "gtFine").split(".")[0] + "_labelTrainIds.png"
-        )
+        # sem_label_file = (
+        #     image_file.replace("leftImg8bit", "gtFine").split(".")[0] + "_labelTrainIds.png"
+        # )
+        # Split the path into directory and filename
+        dir_path, filename = os.path.split(image_file)
+
+        dir_path = dir_path.replace('rgb_anon', 'gtFine')
+        filename = filename.replace('_rgb_anon.png', '_gt_labelIds.png')
+
+
+        sem_label_file = (  os.path.join(dir_path, filename)      )
         segments_info = [_convert_category_id(x, meta) for x in segments_info]
         ret.append(
             {
@@ -117,12 +125,12 @@ def load_cityscapes_panoptic(image_dir, gt_dir, gt_json, meta):
 
 _RAW_CITYSCAPES_PANOPTIC_SPLITS = {
     "cityscapes_fine_panoptic_train": (
-        "cityscapes/leftImg8bit/train",
+        "cityscapes/rgb_anon/train",
         "cityscapes/gtFine/cityscapes_panoptic_train",
         "cityscapes/gtFine/cityscapes_panoptic_train.json",
     ),
     "cityscapes_fine_panoptic_val": (
-        "cityscapes/leftImg8bit/val",
+        "cityscapes/rgb_anon/val",
         "cityscapes/gtFine/cityscapes_panoptic_val",
         "cityscapes/gtFine/cityscapes_panoptic_val.json",
     ),
