@@ -79,6 +79,8 @@ def load_cityscapes_panoptic(image_dir, gt_dir, gt_json, meta):
             ]
         return segment_info
 
+    print("*****gtjson#########")
+    print(gt_json)
     assert os.path.exists(
         gt_json
     ), "Please run `python cityscapesscripts/preparation/createPanopticImgs.py` to generate label files."  # noqa
@@ -124,15 +126,15 @@ def load_cityscapes_panoptic(image_dir, gt_dir, gt_json, meta):
 
 
 _RAW_CITYSCAPES_PANOPTIC_SPLITS = {
-    "cityscapes_fine_panoptic_train": (
-        "cityscapes/rgb_anon/train",
-        "cityscapes/gtFine/cityscapes_panoptic_train",
-        "cityscapes/gtFine/cityscapes_panoptic_train.json",
+    "acdc_fine_panoptic_train": (
+        "acdc/rgb_anon/train",
+        "acdc/gtFine/acdc_panoptic_train",
+        "acdc/gtFine/acdc_panoptic_train.json",
     ),
-    "cityscapes_fine_panoptic_val": (
-        "cityscapes/rgb_anon/val",
-        "cityscapes/gtFine/cityscapes_panoptic_val",
-        "cityscapes/gtFine/cityscapes_panoptic_val.json",
+    "acdc_fine_panoptic_val": (
+        "acdc/rgb_anon/val",
+        "acdc/gtFine/acdc_panoptic_val",
+        "acdc/gtFine/acdc_panoptic_val.json",
     ),
     # "cityscapes_fine_panoptic_test": not supported yet
 }
@@ -185,6 +187,11 @@ def register_all_cityscapes_panoptic(root):
         image_dir = os.path.join(root, image_dir)
         gt_dir = os.path.join(root, gt_dir)
         gt_json = os.path.join(root, gt_json)
+        print("**************Path Blah**********")
+        print(image_dir)
+        print(gt_dir)
+        print(gt_json)
+        print("**************Path**********")
 
         if key in DatasetCatalog.list():
             DatasetCatalog.remove(key)
