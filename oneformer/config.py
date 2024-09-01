@@ -15,6 +15,8 @@ def add_common_config(cfg):
     cfg.INPUT.DATASET_MAPPER_NAME = "oneformer_unified"
     # Color augmentation
     cfg.INPUT.COLOR_AUG_SSD = False
+    # CUTMIX augmentation
+    cfg.INPUT.CUTMIX = False
     # We retry random cropping until no single category in semantic segmentation GT occupies more
     # than `SINGLE_CATEGORY_MAX_AREA` part of the crop.
     cfg.INPUT.CROP.SINGLE_CATEGORY_MAX_AREA = 1.0

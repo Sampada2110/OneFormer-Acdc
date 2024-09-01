@@ -17,11 +17,11 @@ DATASETS:
   TRAIN: ("acdc_fine_panoptic_train",)
   TEST_PANOPTIC: ("acdc_fine_panoptic_val",)
   TEST_INSTANCE: ("cityscapes_fine_instance_seg_val",)
-  TEST_SEMANTIC: ("acdc_fine_sem_seg_val",)
+  TEST_SEMANTIC: ("acdc_fine_sem_seg_val",) # Change to acdc_fine_sem_seg_test if want to evaluate on test
 SOLVER:
   IMS_PER_BATCH: 1
   BASE_LR: 0.0001
-  MAX_ITER: 5
+  MAX_ITER: 10
   WARMUP_FACTOR: 1.0
   WARMUP_ITERS: 0
   WEIGHT_DECAY: 0.05
@@ -47,6 +47,7 @@ INPUT:
     SIZE: (512, 1024)
     SINGLE_CATEGORY_MAX_AREA: 1.0
   COLOR_AUG_SSD: True
+  CUTMIX: True  # Newly added switch for cutmix
   SIZE_DIVISIBILITY: -1
   FORMAT: "RGB"
   DATASET_MAPPER_NAME: "oneformer_unified"
@@ -56,7 +57,7 @@ INPUT:
     SEMANTIC: 1.0
     INSTANCE: 0.0
 TEST:
-  EVAL_PERIOD: 50
+  EVAL_PERIOD: 5
   AUG:
     ENABLED: False
     MIN_SIZES: [512, 768, 1024, 1280, 1536, 1792]

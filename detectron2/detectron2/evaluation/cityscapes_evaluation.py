@@ -189,7 +189,7 @@ class CityscapesSemSegEvaluator(CityscapesEvaluator):
         results = cityscapes_eval.evaluateImgLists(
             predictionImgList, groundTruthImgList, cityscapes_eval.args
         )
-        destination_dir = '/content/SeMask-Segmentation-Acdc/SeMask-Mask2Former/results'
+        destination_dir = '/content/OneFormer-Acdc/results'
         src_folder = self._temp_dir
                 # Ensure the destination directory exists
         os.makedirs(destination_dir, exist_ok=True)
