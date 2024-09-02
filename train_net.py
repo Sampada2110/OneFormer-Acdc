@@ -71,6 +71,8 @@ from time import sleep
 from oneformer.data.build import *
 from oneformer.data.dataset_mappers.dataset_mapper import DatasetMapper
 
+# Adapted from official implementation of cutmix https://github.com/clovaai/CutMix-PyTorc
+
 def custom_cutmix(images, labels, alpha=1.0):
     lam = np.random.beta(alpha, alpha)
     batch_size = images.size()[0]
